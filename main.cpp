@@ -1,14 +1,20 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "file.h"
 #include "sort.h"
+#include "ERROR_CODES.h"
 
 int main(void)
 {
-    const char * INPUT_FILE  = "test.txt";
-    const char * OUTPUT_FILE = "out.txt";
+    const char *input_file_path  = "test.txt";
+    const char *output_file_path = "out.txt";
+    char ***arr_ptr_adr = 0;
     
-    read_file(INPUT_FILE);
+    if (read_file(input_file_path, &arr_ptr_adr) != SUCCESS)
+        return 0;
 
-    sort_and_print_to_file(..., OUTPUT_FILE);
+    if (sort_and_print_to_file(arr_ptr_adr, output_file_path) != SUCCESS)
+        return 0;
 
     return 0;
 }
