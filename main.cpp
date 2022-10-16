@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "io.h"
-#include "sort.h"
-#include "utils.h"
+#include "include/io.h"
+#include "include/sort.h"
+#include "include/utils.h"
 
 int main(void)
 {

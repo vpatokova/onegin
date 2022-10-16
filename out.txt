@@ -10,15 +10,15 @@
 ------------------------------------------------------------
 
 
-ACT I
-SCENE I. Elsinore. A platform before the castle.
-FRANCISCO at his post. Enter to him BERNARDO
-BERNARDO
-Who's there?
-FRANCISCO
-Nay, answer me: stand, and unfold yourself.
-BERNARDO
 Long live the king!
+What, is Horatio there?
+Holla! Bernardo!
+Friends to this ground.
+BERNARDO
+FRANCISCO
+BERNARDO
+BERNARDO
+Nay, answer me: stand, and unfold yourself.
 FRANCISCO
 Bernardo?
 BERNARDO
@@ -27,40 +27,40 @@ FRANCISCO
 You come most carefully upon your hour.
 BERNARDO
 'Tis now struck twelve; get thee to bed, Francisco.
-FRANCISCO
+A piece of him.
 For this relief much thanks: 'tis bitter cold,
 And I am sick at heart.
-BERNARDO
+Who's there?
 Have you had quiet guard?
 FRANCISCO
+HORATIO
+Well, good night.
+BERNARDO
 Not a mouse stirring.
 BERNARDO
-Well, good night.
-If you do meet Horatio and Marcellus,
-The rivals of my watch, bid them make haste.
-FRANCISCO
-I think I hear them. Stand, ho! Who's there?
-Enter HORATIO and MARCELLUS
-HORATIO
-Friends to this ground.
+Say,
+FRANCISCO at his post. Enter to him BERNARDO
+SCENE I. Elsinore. A platform before the castle.
 MARCELLUS
+HORATIO
+FRANCISCO
+Enter HORATIO and MARCELLUS
 And liegemen to the Dane.
 FRANCISCO
 Give you good night.
 MARCELLUS
 O, farewell, honest soldier:
 Who hath relieved you?
+I think I hear them. Stand, ho! Who's there?
+ACT I
+MARCELLUS
+Exit
+FRANCISCO
 FRANCISCO
 Bernardo has my place.
 Give you good night.
-Exit
-MARCELLUS
-Holla! Bernardo!
-BERNARDO
-Say,
-What, is Horatio there?
-HORATIO
-A piece of him.
+If you do meet Horatio and Marcellus,
+The rivals of my watch, bid them make haste.
 
 
 

@@ -2,9 +2,9 @@
 #include <string.h>
 #include <assert.h>
 #include <stdlib.h>
-#include "io.h"
-#include "sort.h"
-#include "utils.h"
+#include "../include/io.h"
+#include "../include/sort.h"
+#include "../include/utils.h"
 
 static Error_codes split_text       (poem *onegin_ptr);
 static long        count_chars      (FILE *file);

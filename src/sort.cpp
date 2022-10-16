@@ -2,8 +2,8 @@
 #include <assert.h>
 #include <ctype.h>
 #include <stdlib.h>
-#include "sort.h"
-#include "utils.h"
+#include "../include/sort.h"
+#include "../include/utils.h"
 
 int  strcmp_first_letters (const void *t, const void *s);
 //static int  strcmp_last_letters  (string *arr_ptr, int index1, int index2);
