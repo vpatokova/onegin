@@ -2,27 +2,28 @@
 #include <string.h>
 #include <assert.h>
 #include <stdlib.h>
-#include "file.h"
+#include "io.h"
 #include "sort.h"
 #include "utils.h"
 
-static ERROR_CODES array_of_ptr             (poem *onegin_ptr);
-static long        count_chars              (FILE *file);
-static void        print_to_file_arr_string (FILE *file_out, poem *onegin_ptr);
-static void        print_header             (FILE *file_out, const char* word);
-static void        print_to_file_text       (FILE *file_out, poem *onegin_ptr);
+static Error_codes split_text       (poem *onegin_ptr);
+static long        count_chars      (FILE *file);
+static void        write_arr_string (FILE *file_out, poem *onegin_ptr);
+static void        print_header     (FILE *file_out, const char *word);
+static void        write_origin     (FILE *file_out, poem *text);
 
 
-ERROR_CODES read_file(const char *input_file_path, poem *onegin_ptr)
+Error_codes fill_struct(const char *input_file_path, poem *onegin_ptr)
 {
     assert(input_file_path != nullptr);
+    assert(onegin_ptr != nullptr);
 
     FILE *file = fopen(input_file_path, "r");
 
     if (file == nullptr)
     {
         printf("Could not open file.\n");
-        return ERROR_FILE_PATH;
+        return ERROR_OPEN_FILE;
     }
 
     onegin_ptr->n_chars = count_chars(file);
@@ -33,9 +34,10 @@ ERROR_CODES read_file(const char *input_file_path, poem *onegin_ptr)
     {
         printf("Could not find free memory.\n");
         fclose(file);
-        return ERROR_FREE_MEMORY;
+        return ERROR_BAD_CALLOC;
     }
 
+    //int c = 0;
     if (fread(onegin_ptr->text, sizeof(char), onegin_ptr->n_chars, file) == 0)
     {
         printf("Could not read chars from the file.\n");
@@ -44,9 +46,12 @@ ERROR_CODES read_file(const char *input_file_path, poem *onegin_ptr)
         return ERROR_READ_FILE;
     }
 
+    //printf("fread: %d\n", c);
+    //printf("n_chars: %d\n", onegin_ptr->n_chars);
+
     fclose(file);
 
-    array_of_ptr(onegin_ptr);
+    split_text(onegin_ptr);
 
     return SUCCESS;
 }
@@ -66,7 +71,7 @@ static long count_chars(FILE *file)
     return n_chars;
 }
 
-static ERROR_CODES array_of_ptr(poem *onegin_ptr)
+static Error_codes split_text(poem *onegin_ptr)
 {
     assert(onegin_ptr != nullptr);
     
@@ -84,12 +89,14 @@ static ERROR_CODES array_of_ptr(poem *onegin_ptr)
     if (onegin_ptr->arr_ptr == nullptr)
     {
         printf("Could not find free memory.\n");
-        return ERROR_FREE_MEMORY;
+        return ERROR_BAD_CALLOC;
     }
 
-    onegin_ptr->arr_ptr[0].string = &(onegin_ptr->text)[0];
     int row = 1;
     int count = 0;
+
+    onegin_ptr->arr_ptr[0].string = &(onegin_ptr->text)[0];
+
     while (row <= onegin_ptr->n_rows)
     {
         if (onegin_ptr->text[count] == '\0')
@@ -108,7 +115,7 @@ static ERROR_CODES array_of_ptr(poem *onegin_ptr)
     return SUCCESS;
 }
 
-ERROR_CODES sort_and_print_to_file(const char *output_file_path, poem *onegin_ptr)
+Error_codes sort_and_print_to_file(const char *output_file_path, poem *onegin_ptr)
 {
     assert(output_file_path != nullptr);
     assert(onegin_ptr != nullptr);
@@ -121,19 +128,21 @@ ERROR_CODES sort_and_print_to_file(const char *output_file_path, poem *onegin_pt
         free(onegin_ptr->arr_ptr);
         free(onegin_ptr->text);
         fclose(file_out);
-        return ERROR_FILE_PATH;
+        return ERROR_OPEN_FILE;
     }
 
     print_header(file_out, "TEXT SORTED BY FIRST LETTERS");
-    my_bubble_sort_first_letters(onegin_ptr);
-    print_to_file_arr_string(file_out, onegin_ptr);
+    //my_bubble_sort_first_letters(onegin_ptr);
+    //my_qsort(onegin_ptr->arr_ptr, onegin_ptr->arr_ptr, &onegin_ptr->arr_ptr[-1]);
+    sort_qsort_first_letter(onegin_ptr);
+    write_arr_string(file_out, onegin_ptr);
 
-    print_header(file_out, "TEXT SORTED BY LAST LETTERS");
+    /*print_header(file_out, "TEXT SORTED BY LAST LETTERS");
     my_bubble_sort_last_letters(onegin_ptr);
-    print_to_file_arr_string(file_out, onegin_ptr);
+    write_arr_string(file_out, onegin_ptr);*/
 
     print_header(file_out, "SOURCE TEXT");
-    print_to_file_text(file_out, onegin_ptr);
+    write_origin(file_out, onegin_ptr);
     print_header(file_out, "END");
 
     free(onegin_ptr->arr_ptr);
@@ -143,9 +152,9 @@ ERROR_CODES sort_and_print_to_file(const char *output_file_path, poem *onegin_pt
     return SUCCESS;
 }
 
-static void print_to_file_arr_string(FILE *file_out, poem *onegin_ptr)
+static void write_arr_string(FILE *file_out, poem *onegin_ptr)
 {
-    assert(file_out != nullptr);
+    assert(file_out   != nullptr);
     assert(onegin_ptr != nullptr);
 
     for (int i = 0; i < onegin_ptr->n_rows; i++)
@@ -153,22 +162,21 @@ static void print_to_file_arr_string(FILE *file_out, poem *onegin_ptr)
             fprintf(file_out, "%s\n", onegin_ptr->arr_ptr[i].string);
 }
 
-static void print_to_file_text(FILE *file_out, poem *onegin_ptr)
+static void write_origin (FILE *file_out, poem *text)
 {
-    assert(file_out != nullptr);
-    assert(onegin_ptr != nullptr);
+    assert (text != nullptr);
+    assert (file_out != nullptr);
 
-    for (int count = 0; count < onegin_ptr->n_chars + 1; count++)
-        if (onegin_ptr->text[count] == '\0')
-            onegin_ptr->text[count] = '\n';
+    char *point = text->text;
 
-    fprintf(file_out, "%s\n", onegin_ptr->text);
-
+    for (int i = 0; i < text->n_rows; i++)
+        point += fprintf (file_out, "%s\n", point);
 }
 
-static void print_header(FILE *file_out, const char* word) 
+static void print_header(FILE *file_out, const char *word) 
 {
     assert(file_out != nullptr);
+    assert(word != nullptr);
 
     fprintf(file_out, "\n\n\n------------------------------------------------------------\n\n\n");
     fprintf(file_out, "                  %s                        ", word);

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "file.h"
+#include "io.h"
 #include "sort.h"
 #include "utils.h"
 
@@ -17,10 +17,10 @@ int main(void)
         .n_chars =       0,
     };
 
-    if (read_file(input_file_path, &onegin) != SUCCESS)
-        return 0;
+    if (fill_struct(input_file_path, &onegin) != SUCCESS)
+        return 1;
     if (sort_and_print_to_file(output_file_path, &onegin) != SUCCESS)
-        return 0;
+        return 1;
 
     return 0;
 }
