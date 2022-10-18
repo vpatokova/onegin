@@ -5,11 +5,20 @@
 #include "../include/sort.h"
 #include "../include/utils.h"
 
-int  strcmp_first_letters (const void *t, const void *s);
-//static int  strcmp_last_letters  (string *arr_ptr, int index1, int index2);
-static void ptr_swap             (char **str1, char **str2);
+static int  my_strcmp         (const char *str1, const char *str2);
+static int  my_strcmp_reverse (string *arr_ptr, int index1, int index2);
+static void swap_string       (char **str1, char **str2);
+static void swap_len          (int *len1, int *len2);
+static int  partition         (string *arr_ptr, int left, int right, Sort mode);
 
-static void ptr_swap(char **str1, char **str2)
+void free_memory(poem *onegin_ptr, FILE *output_file)
+{
+    free(onegin_ptr->arr_ptr);
+    free(onegin_ptr->text);
+    fclose(output_file);
+}
+
+static void swap_string(char **str1, char **str2)
 {
     assert(str1 != nullptr);
     assert(str2 != nullptr);
@@ -19,10 +28,18 @@ static void ptr_swap(char **str1, char **str2)
     *str2  =  tmp;
 }
 
-int strcmp_first_letters(const void *t, const void *s)
+static void swap_len (int *len1, int *len2)
 {
-    const char *str1 = (const char *) t;
-    const char *str2 = (const char *) s;
+    assert(len1 != nullptr);
+    assert(len2 != nullptr);
+
+    int tmp = *len1;
+    *len1 = *len2;
+    *len2 = tmp;
+}
+
+static int my_strcmp(const char *str1, const char *str2)
+{
     assert(str1 != nullptr);
     assert(str2 != nullptr);
 
@@ -41,15 +58,15 @@ int strcmp_first_letters(const void *t, const void *s)
     return tolower(*str1) - tolower(*str2);
 }
 
-/*static int strcmp_last_letters(string *arr_ptr, int index1, int index2)
+static int my_strcmp_reverse(string *arr_ptr, int index1, int index2)
 {
     assert(arr_ptr != nullptr);
 
     int i1 = arr_ptr[index1].len - 1;
     int i2 = arr_ptr[index2].len - 1;
 
-    char *str1 = arr_ptr[index1].string;
-    char *str2 = arr_ptr[index2].string;
+    const char *str1 = arr_ptr[index1].string;
+    const char *str2 = arr_ptr[index2].string;
 
     while (not isalpha(*(str1+i1)))
         i1--;
@@ -64,61 +81,43 @@ int strcmp_first_letters(const void *t, const void *s)
         i1--;
         i2--;
     }
-
     return tolower(*(str1+i1)) - tolower(*(str2+i2));
-}*/
-
-void  sort_qsort_first_letter(poem *text)
-{
-    qsort(text->arr_ptr, text->n_rows, sizeof(string), strcmp_first_letters);
 }
 
-/*void my_qsort(string *arr_ptr, string *left, string *right)
+void my_qsort(string *arr_ptr, int left, int right, Sort mode)
 {
-    string *piv_ptr = left + (right - left)/ 2;
-    //string *left = arr_ptr;
-    //string *right = &arr_ptr[-1];
-
-    while (left <= right)
+    if (left < right)
     {
-        while (strcmp_first_letters(left->string, piv_ptr->string) < 0)
-            left++;
-        
-        while (strcmp_first_letters(piv_ptr->string, right->string) < 0)
-            right--;
-
-        if (left < right)
-        {
-            ptr_swap(&(left->string), &(right->string));
-
-            left++;
-            right--;
-        }
+        int pi = partition(arr_ptr, left, right, mode);
+        my_qsort(arr_ptr, left, pi - 1, mode);
+        my_qsort(arr_ptr, pi + 1, right, mode);
     }
+}
 
-    if (right > arr_ptr)
-        my_qsort(arr_ptr, arr_ptr, right);
-
-    if (left < &arr_ptr[-1])
-        my_qsort(arr_ptr, left, &arr_ptr[-1]);
-}*/
-
-/*void my_bubble_sort_first_letters(poem *onegin_ptr)
+static int partition(string *arr_ptr, int left, int right, Sort mode)
 {
-    assert(onegin_ptr != nullptr);
+    int i = left - 1;
 
-    for (int i = 0; i < onegin_ptr->n_rows - 1; i++)
-        for (int j = 0; j < onegin_ptr->n_rows - 1 - i; j++)
-            if (strcmp_first_letters(onegin_ptr->arr_ptr, j, j + 1) > 0)
-                ptr_swap(&onegin_ptr->arr_ptr[j].string, &onegin_ptr->arr_ptr[j+1].string);
-}*/
+    if (mode == LEFT)
+        for (int j = left; j <= right - 1; j++)
+            if (my_strcmp(arr_ptr[j].string, arr_ptr[right].string) < 0)
+                {
+                    i++;
+                    swap_string (&arr_ptr[i].string, &arr_ptr[j].string);
+                    swap_len    (&arr_ptr[i].len,    &arr_ptr[j].len);
+                }
 
-/*void my_bubble_sort_last_letters(poem *onegin_ptr)
-{
-    assert(onegin_ptr != nullptr);
+    if (mode == RIGHT)
+        for (int j = left; j <= right - 1; j++)
+            if (my_strcmp_reverse(arr_ptr, j, right) < 0)
+                {
+                    i++;
+                    swap_string (&arr_ptr[i].string, &arr_ptr[j].string);
+                    swap_len    (&arr_ptr[i].len,    &arr_ptr[j].len);
+                }
 
-    for (int i = 0; i < onegin_ptr->n_rows - 1; i++)
-        for (int j = 0; j < onegin_ptr->n_rows - 1 - i; j++)
-            if (strcmp_last_letters(onegin_ptr->arr_ptr, j, j + 1) > 0)
-                ptr_swap(&onegin_ptr->arr_ptr[j].string, &onegin_ptr->arr_ptr[j+1].string);
-}*/
+    swap_string(&arr_ptr[i + 1].string, &arr_ptr[right].string);
+    swap_len(&arr_ptr[i + 1].len, &arr_ptr[right].len);
+
+    return i + 1;
+}

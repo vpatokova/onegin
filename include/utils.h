@@ -9,6 +9,13 @@ enum Error_codes
     ERROR_READ_FILE   = 3
 };
 
+enum Sort
+{
+    TEST  = 0,
+    LEFT  = 1,
+    RIGHT = 2
+};
+
 typedef struct 
 {
     char *string;

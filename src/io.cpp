@@ -37,7 +37,6 @@ Error_codes fill_struct(const char *input_file_path, poem *onegin_ptr)
         return ERROR_BAD_CALLOC;
     }
 
-    //int c = 0;
     if (fread(onegin_ptr->text, sizeof(char), onegin_ptr->n_chars, file) == 0)
     {
         printf("Could not read chars from the file.\n");
@@ -45,9 +44,6 @@ Error_codes fill_struct(const char *input_file_path, poem *onegin_ptr)
         fclose(file);
         return ERROR_READ_FILE;
     }
-
-    //printf("fread: %d\n", c);
-    //printf("n_chars: %d\n", onegin_ptr->n_chars);
 
     fclose(file);
 
@@ -103,7 +99,7 @@ static Error_codes split_text(poem *onegin_ptr)
         {
             onegin_ptr->arr_ptr[row].string = &(onegin_ptr->text)[count + 1];
             onegin_ptr->arr_ptr[row - 1].len = (onegin_ptr->arr_ptr[row].string - onegin_ptr->arr_ptr[row - 1].string - 1) / sizeof(char);
-            printf("%d %d\n", row - 1, onegin_ptr->arr_ptr[row - 1].len);
+
             row++;
         }
         count++;
@@ -125,29 +121,23 @@ Error_codes sort_and_print_to_file(const char *output_file_path, poem *onegin_pt
     if (file_out == nullptr)
     {
         printf("Could not open file.\n");
-        free(onegin_ptr->arr_ptr);
-        free(onegin_ptr->text);
-        fclose(file_out);
+        free_memory(onegin_ptr, file_out);
         return ERROR_OPEN_FILE;
     }
 
     print_header(file_out, "TEXT SORTED BY FIRST LETTERS");
-    //my_bubble_sort_first_letters(onegin_ptr);
-    //my_qsort(onegin_ptr->arr_ptr, onegin_ptr->arr_ptr, &onegin_ptr->arr_ptr[-1]);
-    sort_qsort_first_letter(onegin_ptr);
+    my_qsort(onegin_ptr->arr_ptr, 0, onegin_ptr->n_rows, LEFT);
     write_arr_string(file_out, onegin_ptr);
 
-    /*print_header(file_out, "TEXT SORTED BY LAST LETTERS");
-    my_bubble_sort_last_letters(onegin_ptr);
-    write_arr_string(file_out, onegin_ptr);*/
+    print_header(file_out, "TEXT SORTED BY LAST LETTERS");
+    my_qsort(onegin_ptr->arr_ptr, 0, onegin_ptr->n_rows - 1, RIGHT);
+    write_arr_string(file_out, onegin_ptr);
 
     print_header(file_out, "SOURCE TEXT");
     write_origin(file_out, onegin_ptr);
     print_header(file_out, "END");
 
-    free(onegin_ptr->arr_ptr);
-    free(onegin_ptr->text);
-    fclose(file_out);
+    free_memory(onegin_ptr, file_out);
 
     return SUCCESS;
 }
@@ -179,6 +169,6 @@ static void print_header(FILE *file_out, const char *word)
     assert(word != nullptr);
 
     fprintf(file_out, "\n\n\n------------------------------------------------------------\n\n\n");
-    fprintf(file_out, "                  %s                        ", word);
+    fprintf(file_out, "                     %s                    ", word);
     fprintf(file_out, "\n\n\n------------------------------------------------------------\n\n\n");
 }
