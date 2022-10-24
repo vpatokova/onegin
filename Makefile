@@ -6,7 +6,7 @@ FLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equa
 		-Wmissing-field-initializers -Wnon-virtual-dtor -Woverloaded-virtual -Wpointer-arith -Wsign-promo -Wstack-usage=8192         \
 		-Wstrict-aliasing -Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -D_DEBUG -D_EJUDGE_CLIENT_SIDE
 
-SOURCES = main.cpp src/io.cpp src/sort.cpp 
+SOURCES = main.cpp src/io.cpp src/sort.cpp src/poem.cpp src/test.cpp
 
 OBJECTS = $(SOURCES:.cpp=.o)
 

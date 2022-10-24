@@ -6,17 +6,73 @@
 #include "../include/sort.h"
 #include "../include/utils.h"
 
-static Error_codes split_text       (poem *onegin_ptr);
-static long        count_chars      (FILE *file);
-static void        write_arr_string (FILE *file_out, poem *onegin_ptr);
-static void        print_header     (FILE *file_out, const char *word);
-static void        write_origin     (FILE *file_out, poem *text);
+static Error_codes check_extension (const char *file_name, const char *extension);
+static long        count_chars     (FILE *file);
 
+Error_codes check_param(int arg_count, const char *input_file_path, 
+                        const char *output_file_path, const char *sort_mode)
+{
+    if (arg_count != 4)
+    {
+        printf("Incorrect number of arguments\n\n" \
+               "Example of correct input:\n \\.prog input_file.txt output_file.txt sort_mode\n\n");
+        return FAIL;
+    }
 
-Error_codes fill_struct(const char *input_file_path, poem *onegin_ptr)
+    else if (strcmp(input_file_path, output_file_path) == 0)
+    {
+        printf("Names of input and output files should be different.\n");
+        return FAIL;
+    }
+
+    else if ((check_extension(input_file_path,  "txt") == WRONG_EXTENSION) or
+             (check_extension(output_file_path, "txt") == WRONG_EXTENSION))
+    {
+        printf("Files should have the .txt extension.\n");
+        return FAIL;
+    }
+
+    else if (strcmp(sort_mode, "test") != 0 and
+             strcmp(sort_mode, "lr") != 0 and 
+             strcmp(sort_mode, "rl") != 0)
+    {
+        printf("Incorrect sort mode. Use:\n"             \
+               "'test' to test this program,\n"          \
+               "'lr' to sort text from left to right,\n" \
+               "'rl' to sort text from right to left.\n");
+        return FAIL;
+    }
+
+    return SUCCESS;
+}
+
+static Error_codes check_extension (const char *file_name, const char *extension)
+{
+    if (strchr(file_name, '.') == nullptr)
+        return WRONG_EXTENSION;
+
+    else if (strcmp(strchr(file_name, '.') + 1, extension) != 0)
+        return WRONG_EXTENSION;
+ 
+    return SUCCESS;
+}
+
+Sort_mode get_sort_mode (const char *sort_mode)
+{
+    if (strcmp(sort_mode, "lr") == 0)
+        return LEFT_TO_RIGHT;
+
+    else if (strcmp(sort_mode, "rl") == 0)
+        return RIGHT_TO_LEFT;
+
+    else // if (strcmp(sort_mode, "test") == 0)
+        return TEST;
+}
+
+Error_codes get_content(const char *input_file_path, poem *onegin_ptr)
 {
     assert(input_file_path != nullptr);
-    assert(onegin_ptr != nullptr);
+    assert(onegin_ptr      != nullptr);
 
     FILE *file = fopen(input_file_path, "r");
 
@@ -47,8 +103,6 @@ Error_codes fill_struct(const char *input_file_path, poem *onegin_ptr)
 
     fclose(file);
 
-    split_text(onegin_ptr);
-
     return SUCCESS;
 }
 
@@ -67,82 +121,31 @@ static long count_chars(FILE *file)
     return n_chars;
 }
 
-static Error_codes split_text(poem *onegin_ptr)
-{
-    assert(onegin_ptr != nullptr);
-    
-    for (int count = 0; count < onegin_ptr->n_chars + 1; count++)
-    {
-        if (onegin_ptr->text[count] == '\n')
-        {
-            onegin_ptr->text[count] = '\0';
-            (onegin_ptr->n_rows)++;
-        }
-    }
-
-    onegin_ptr->arr_ptr = (string*) calloc(onegin_ptr->n_rows + 1, sizeof(string)); 
-
-    if (onegin_ptr->arr_ptr == nullptr)
-    {
-        printf("Could not find free memory.\n");
-        return ERROR_BAD_CALLOC;
-    }
-
-    int row = 1;
-    int count = 0;
-
-    onegin_ptr->arr_ptr[0].string = &(onegin_ptr->text)[0];
-
-    while (row <= onegin_ptr->n_rows)
-    {
-        if (onegin_ptr->text[count] == '\0')
-        {
-            onegin_ptr->arr_ptr[row].string = &(onegin_ptr->text)[count + 1];
-            onegin_ptr->arr_ptr[row - 1].len = (onegin_ptr->arr_ptr[row].string - onegin_ptr->arr_ptr[row - 1].string - 1) / sizeof(char);
-
-            row++;
-        }
-        count++;
-    }
-    
-
-    assert (onegin_ptr->arr_ptr != 0);
-
-    return SUCCESS;
-}
-
-Error_codes sort_and_print_to_file(const char *output_file_path, poem *onegin_ptr)
+Error_codes write_to_file_sorted_text(const char *output_file_path, poem *onegin_ptr, Sort_mode sort_mode)
 {
     assert(output_file_path != nullptr);
-    assert(onegin_ptr != nullptr);
+    assert(onegin_ptr       != nullptr);
 
     FILE *file_out = fopen(output_file_path, "w");
 
     if (file_out == nullptr)
     {
         printf("Could not open file.\n");
-        free_memory(onegin_ptr, file_out);
+        free_memory(onegin_ptr);
+        fclose(file_out);
         return ERROR_OPEN_FILE;
     }
 
-    print_header(file_out, "TEXT SORTED BY FIRST LETTERS");
-    my_qsort(onegin_ptr->arr_ptr, 0, onegin_ptr->n_rows, LEFT);
-    write_arr_string(file_out, onegin_ptr);
+    my_qsort(onegin_ptr->arr_ptr, 0, onegin_ptr->n_rows, sort_mode);
+    write_sorted(file_out, onegin_ptr);
 
-    print_header(file_out, "TEXT SORTED BY LAST LETTERS");
-    my_qsort(onegin_ptr->arr_ptr, 0, onegin_ptr->n_rows - 1, RIGHT);
-    write_arr_string(file_out, onegin_ptr);
-
-    print_header(file_out, "SOURCE TEXT");
-    write_origin(file_out, onegin_ptr);
-    print_header(file_out, "END");
-
-    free_memory(onegin_ptr, file_out);
+    free_memory(onegin_ptr);
+    fclose(file_out);
 
     return SUCCESS;
 }
 
-static void write_arr_string(FILE *file_out, poem *onegin_ptr)
+void write_sorted(FILE *file_out, poem *onegin_ptr)
 {
     assert(file_out   != nullptr);
     assert(onegin_ptr != nullptr);
@@ -152,23 +155,3 @@ static void write_arr_string(FILE *file_out, poem *onegin_ptr)
             fprintf(file_out, "%s\n", onegin_ptr->arr_ptr[i].string);
 }
 
-static void write_origin (FILE *file_out, poem *text)
-{
-    assert (text != nullptr);
-    assert (file_out != nullptr);
-
-    char *point = text->text;
-
-    for (int i = 0; i < text->n_rows; i++)
-        point += fprintf (file_out, "%s\n", point);
-}
-
-static void print_header(FILE *file_out, const char *word) 
-{
-    assert(file_out != nullptr);
-    assert(word != nullptr);
-
-    fprintf(file_out, "\n\n\n------------------------------------------------------------\n\n\n");
-    fprintf(file_out, "                     %s                    ", word);
-    fprintf(file_out, "\n\n\n------------------------------------------------------------\n\n\n");
-}

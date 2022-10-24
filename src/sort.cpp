@@ -7,35 +7,23 @@
 
 static int  my_strcmp         (const char *str1, const char *str2);
 static int  my_strcmp_reverse (string *arr_ptr, int index1, int index2);
-static void swap_string       (char **str1, char **str2);
-static void swap_len          (int *len1, int *len2);
-static int  partition         (string *arr_ptr, int left, int right, Sort mode);
+static int  partition         (string *arr_ptr, int left, int right, Sort_mode mode);
+static void swap_struct       (string *s1, string *s2);
 
-void free_memory(poem *onegin_ptr, FILE *output_file)
+void free_memory(poem *onegin_ptr)
 {
     free(onegin_ptr->arr_ptr);
     free(onegin_ptr->text);
-    fclose(output_file);
 }
 
-static void swap_string(char **str1, char **str2)
+static void swap_struct(string *s1, string *s2)
 {
-    assert(str1 != nullptr);
-    assert(str2 != nullptr);
+    assert(s1 != nullptr);
+    assert(s2 != nullptr);
 
-    char *tmp = *str1;
-    *str1  = *str2;
-    *str2  =  tmp;
-}
-
-static void swap_len (int *len1, int *len2)
-{
-    assert(len1 != nullptr);
-    assert(len2 != nullptr);
-
-    int tmp = *len1;
-    *len1 = *len2;
-    *len2 = tmp;
+    string tmp = *s1;
+    *s1  = *s2;
+    *s2  =  tmp;    
 }
 
 static int my_strcmp(const char *str1, const char *str2)
@@ -43,10 +31,10 @@ static int my_strcmp(const char *str1, const char *str2)
     assert(str1 != nullptr);
     assert(str2 != nullptr);
 
-    while (not isalpha(*str1))
+    while (! isalpha(*str1))
         str1++;
 
-    while (not isalpha(*str2))
+    while (! isalpha(*str2))
         str2++;
 
     while (tolower(*str1) == tolower(*str2) && *str1 != '\0')
@@ -68,10 +56,10 @@ static int my_strcmp_reverse(string *arr_ptr, int index1, int index2)
     const char *str1 = arr_ptr[index1].string;
     const char *str2 = arr_ptr[index2].string;
 
-    while (not isalpha(*(str1+i1)))
+    while (! isalpha(*(str1+i1)))
         i1--;
 
-    while (not isalpha(*(str2+i2)))
+    while (! isalpha(*(str2+i2)))
         i2--;
 
     while (tolower(*(str1+i1)) == tolower(*(str2+i2)))
@@ -84,40 +72,37 @@ static int my_strcmp_reverse(string *arr_ptr, int index1, int index2)
     return tolower(*(str1+i1)) - tolower(*(str2+i2));
 }
 
-void my_qsort(string *arr_ptr, int left, int right, Sort mode)
+void my_qsort(string *arr_ptr, int left, int right, Sort_mode sort_mode)
 {
     if (left < right)
     {
-        int pi = partition(arr_ptr, left, right, mode);
-        my_qsort(arr_ptr, left, pi - 1, mode);
-        my_qsort(arr_ptr, pi + 1, right, mode);
+        int pi = partition(arr_ptr, left, right, sort_mode);
+        my_qsort(arr_ptr, left, pi - 1, sort_mode);
+        my_qsort(arr_ptr, pi + 1, right, sort_mode);
     }
 }
 
-static int partition(string *arr_ptr, int left, int right, Sort mode)
+static int partition(string *arr_ptr, int left, int right, Sort_mode sort_mode)
 {
     int i = left - 1;
 
-    if (mode == LEFT)
-        for (int j = left; j <= right - 1; j++)
+    if (sort_mode == LEFT_TO_RIGHT)
+        for (int j = left; j < right; j++)
             if (my_strcmp(arr_ptr[j].string, arr_ptr[right].string) < 0)
                 {
                     i++;
-                    swap_string (&arr_ptr[i].string, &arr_ptr[j].string);
-                    swap_len    (&arr_ptr[i].len,    &arr_ptr[j].len);
+                    swap_struct(arr_ptr + i, arr_ptr + j);
                 }
 
-    if (mode == RIGHT)
-        for (int j = left; j <= right - 1; j++)
+    if (sort_mode == RIGHT_TO_LEFT)
+        for (int j = left; j < right; j++)
             if (my_strcmp_reverse(arr_ptr, j, right) < 0)
                 {
                     i++;
-                    swap_string (&arr_ptr[i].string, &arr_ptr[j].string);
-                    swap_len    (&arr_ptr[i].len,    &arr_ptr[j].len);
+                    swap_struct(arr_ptr + i, arr_ptr + j);
                 }
 
-    swap_string(&arr_ptr[i + 1].string, &arr_ptr[right].string);
-    swap_len(&arr_ptr[i + 1].len, &arr_ptr[right].len);
+    swap_struct(arr_ptr + i + 1, arr_ptr + right);
 
     return i + 1;
 }

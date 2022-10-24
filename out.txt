@@ -1248,11 +1248,11 @@ As harbingers preceding still the fates
 What wouldst thou have, Laertes?
 And loose your voice: what wouldst thou beg, Laertes,
 You told us of some suit; what is't, Laertes?
+LAERTES
+LAERTES
+LAERTES
+LAERTES
 LAERTES
-LAERTES
-LAERTES
-LAERTES
-LAERTES
 LAERTES
 LAERTES
 LAERTES
@@ -1299,29 +1299,29 @@ LORD POLONIUS
 LORD POLONIUS
 Enter POLONIUS
 Have you your father's leave? What says Polonius?
+MARCELLUS
+MARCELLUS
+MARCELLUS
+MARCELLUS
+MARCELLUS
+MARCELLUS
+MARCELLUS
+MARCELLUS
+MARCELLUS
+MARCELLUS
+MARCELLUS
+MARCELLUS
+MARCELLUS
+MARCELLUS
+MARCELLUS
 Speak of it: stay, and speak! Stop it, Marcellus.
 And what make you from Wittenberg, Horatio? Marcellus?
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
 Enter HORATIO and MARCELLUS
 If you do meet Horatio and Marcellus,
+MARCELLUS
+MARCELLUS
 Welcome, Horatio: welcome, good Marcellus.
+MARCELLUS
 MARCELLUS
 Good now, sit down, and tell me, he that knows,
 Cock crows
@@ -1332,19 +1332,12 @@ Do you doubt that?
 Doth with his lofty and shrill-sounding throat
 Nor any unproportioned thought his act.
 Did slay this Fortinbras; who by a seal'd compact,
-HAMLET
-HAMLET
-HAMLET
 'Tis sweet and commendable in your nature, Hamlet,
 HAMLET
 HAMLET
 HAMLET
 Let not thy mother lose her prayers, Hamlet:
 This gentle and unforced accord of Hamlet
-HAMLET
-HAMLET
-HAMLET
-HAMLET
 Dared to the combat; in which our valiant Hamlet--
 Exeunt all but HAMLET
 HAMLET
@@ -1359,17 +1352,24 @@ HAMLET
 HAMLET
 HAMLET
 HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
 Exeunt all but HAMLET
+HAMLET
+HAMLET
+HAMLET
+HAMLET
+HAMLET
+HAMLET
+HAMLET
+HAMLET
+HAMLET
+HAMLET
+HAMLET
+HAMLET
+HAMLET
+HAMLET
+HAMLET
+HAMLET
+HAMLET
 HAMLET
 Well, good night.
 Give you good night.
@@ -1420,8 +1420,8 @@ And I am sick at heart.
 We'll teach you to drink deep ere you depart.
 To make it truster of your own report
 By laboursome petition, and at last
-Enter Ghost
 Re-enter Ghost
+Enter Ghost
 Exit Ghost
 Exit Ghost
 She married. O, most wicked speed, to post
