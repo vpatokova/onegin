@@ -44,8 +44,9 @@ Sort_mode get_sort_mode (const char *sort_mode)
            "'%s' to test this program,\n"          
            "'%s' to sort text from left to right,\n" 
            "'%s' to sort text from right to left.\n",
-           left_to_right_mode, right_to_left_mode, test_mode);
-           
+           test_mode, left_to_right_mode, right_to_left_mode);
+
+
     return BAD_MODE;
 }
 

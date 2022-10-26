@@ -12,6 +12,6 @@ enum Sort_mode
     RIGHT_TO_LEFT =  2
 };
 
-void my_qsort (string *arr_ptr, int left, int right, Sort_mode mode);
+void my_qsort (string *arr_ptr, int left, int right, Sort_mode sort_mode);
 
 #endif //!SORT_H
