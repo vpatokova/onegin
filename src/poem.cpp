@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "../include/io.h"
 #include "../include/sort.h"
-#include "../include/utils.h"
+#include "../include/common.h"
 #include "../include/poem.h"
 
 static Error_codes split_text   (poem *onegin_ptr);
@@ -14,13 +14,27 @@ Error_codes construct_poem(const char *input_file_path, poem *onegin_ptr)
     assert(input_file_path != nullptr);
     assert(onegin_ptr      != nullptr);
 
+    *onegin_ptr = 
+    {
+        .text    = nullptr,
+        .arr_ptr = nullptr,
+        .n_rows  =       1,
+        .n_chars =       0,
+    };
+
     if (get_content(input_file_path, onegin_ptr) != SUCCESS)
-        return FAIL;
+        return BAD_USER_INPUT;
 
     if (split_text(onegin_ptr) != SUCCESS)
-        return FAIL;
+        return ERROR_BAD_CALLOC;
 
     return SUCCESS;
+}
+
+void destruct_poem(poem *onegin_ptr)
+{
+    free(onegin_ptr->arr_ptr);
+    free(onegin_ptr->text);
 }
 
 static Error_codes split_text(poem *onegin_ptr)
@@ -53,16 +67,16 @@ static Error_codes split_text(poem *onegin_ptr)
     {
         if (onegin_ptr->text[count] == '\0')
         {
-            onegin_ptr->arr_ptr[row].string = &(onegin_ptr->text)[count + 1];
-            onegin_ptr->arr_ptr[row - 1].len = (onegin_ptr->arr_ptr[row].string - onegin_ptr->arr_ptr[row - 1].string - 1) / sizeof(char);
+            string curr = onegin_ptr->arr_ptr[row];
+            string prev = onegin_ptr->arr_ptr[row - 1]; 
+
+            curr.string = &(onegin_ptr->text)[count + 1];
+            prev.len = (curr.string - prev.string - 1) / sizeof(char);
 
             row++;
         }
         count++;
     }
-    
-
-    assert (onegin_ptr->arr_ptr != 0);
 
     return SUCCESS;
 }

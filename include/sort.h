@@ -1,9 +1,17 @@
 #ifndef SORT_H
 #define SORT_H
 
-#include "utils.h"
+#include "common.h"
+#include "poem.h"
 
-void my_qsort    (string *arr_ptr, int left, int right, Sort_mode mode);
-void free_memory (poem *onegin_ptr);
+enum Sort_mode
+{
+    BAD_MODE      = -1,
+    TEST          =  0,
+    LEFT_TO_RIGHT =  1,
+    RIGHT_TO_LEFT =  2
+};
+
+void my_qsort (string *arr_ptr, int left, int right, Sort_mode mode);
 
 #endif //!SORT_H

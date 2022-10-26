@@ -3,20 +3,15 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include "../include/sort.h"
-#include "../include/utils.h"
+#include "../include/common.h"
+#include "../include/poem.h"
 
 static int  my_strcmp         (const char *str1, const char *str2);
 static int  my_strcmp_reverse (string *arr_ptr, int index1, int index2);
 static int  partition         (string *arr_ptr, int left, int right, Sort_mode mode);
-static void swap_struct       (string *s1, string *s2);
+static void swap_string       (string *s1, string *s2);
 
-void free_memory(poem *onegin_ptr)
-{
-    free(onegin_ptr->arr_ptr);
-    free(onegin_ptr->text);
-}
-
-static void swap_struct(string *s1, string *s2)
+static void swap_string(string *s1, string *s2)
 {
     assert(s1 != nullptr);
     assert(s2 != nullptr);
@@ -91,7 +86,7 @@ static int partition(string *arr_ptr, int left, int right, Sort_mode sort_mode)
             if (my_strcmp(arr_ptr[j].string, arr_ptr[right].string) < 0)
                 {
                     i++;
-                    swap_struct(arr_ptr + i, arr_ptr + j);
+                    swap_string(arr_ptr + i, arr_ptr + j);
                 }
 
     if (sort_mode == RIGHT_TO_LEFT)
@@ -99,10 +94,10 @@ static int partition(string *arr_ptr, int left, int right, Sort_mode sort_mode)
             if (my_strcmp_reverse(arr_ptr, j, right) < 0)
                 {
                     i++;
-                    swap_struct(arr_ptr + i, arr_ptr + j);
+                    swap_string(arr_ptr + i, arr_ptr + j);
                 }
 
-    swap_struct(arr_ptr + i + 1, arr_ptr + right);
+    swap_string(arr_ptr + i + 1, arr_ptr + right);
 
     return i + 1;
 }

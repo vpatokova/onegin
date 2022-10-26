@@ -4,26 +4,17 @@
 #include <stdlib.h>
 #include "../include/io.h"
 #include "../include/sort.h"
-#include "../include/utils.h"
+#include "../include/common.h"
 #include "../include/test.h"
+#include "../include/poem.h"
 
 static void print_header (FILE *file_out, const char *word);
 static void write_origin (FILE *file_out, poem *text);
 
-Error_codes test_output(const char *output_file_path, poem *onegin_ptr)
+Error_codes test_output(FILE *file_out, poem *onegin_ptr)
 {
-    assert(output_file_path != nullptr);
-    assert(onegin_ptr       != nullptr);
-
-    FILE *file_out = fopen(output_file_path, "w");
-
-    if (file_out == nullptr)
-    {
-        printf("Could not open file.\n");
-        free_memory(onegin_ptr);
-        fclose(file_out);
-        return ERROR_OPEN_FILE;
-    }
+    assert(file_out   != nullptr);
+    assert(onegin_ptr != nullptr);
 
     print_header(file_out, "TEXT SORTED BY FIRST LETTERS");
     my_qsort(onegin_ptr->arr_ptr, 0, onegin_ptr->n_rows, LEFT_TO_RIGHT);
@@ -37,7 +28,6 @@ Error_codes test_output(const char *output_file_path, poem *onegin_ptr)
     write_origin(file_out, onegin_ptr);
     print_header(file_out, "END");
 
-    free_memory(onegin_ptr);
     fclose(file_out);
 
     return SUCCESS;    
