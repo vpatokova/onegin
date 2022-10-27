@@ -21,7 +21,7 @@ $(NAME): $(OBJ)
 
 define CC_RULE =
 $(BUILDDIR)/$(subst /,_,$(patsubst %cpp,%o,$(SOURCE))): $(SOURCE)
-	$(CC) $(FLAGS) -c -o $@ $<
+	$(CC) $(FLAGS) -c -o $$@ $$<
 endef
 
 $(foreach SOURCE,$(SRC),$(eval $(call CC_RULE,$(SOURCE))))
