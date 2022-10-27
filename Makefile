@@ -6,22 +6,26 @@ FLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equa
 		-Wmissing-field-initializers -Wnon-virtual-dtor -Woverloaded-virtual -Wpointer-arith -Wsign-promo -Wstack-usage=8192         \
 		-Wstrict-aliasing -Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -D_DEBUG -D_EJUDGE_CLIENT_SIDE
 
-SOURCES = main.cpp src/io.cpp src/sort.cpp src/poem.cpp src/test.cpp
+SRC = main.cpp src/io.cpp src/sort.cpp src/poem.cpp src/test.cpp
 
-OBJECTS = $(SOURCES:.cpp=.o)
+BUILDDIR = obj
 
-EXECUTABLE = do
+$(foreach SOURCE,$(SRC),$(eval $(call CC_RULE,$(SOURCE))))
 
-all: $(SOURCES) $(EXECUTABLE)
+OBJ = $(addprefix $(BUILDDIR)/,$(subst /,_,$(patsubst %.cpp,%.o,$(SRC))))
 
-.SUFFIXES: .cpp .o
+NAME = do
 
-.cpp.o:
+all: $(SRC) $(NAME)
+
+$(NAME): $(OBJ) 
+	$(CC) $(FLAGS) $(OBJ) -o $(NAME)
+
+define CC_RULE =
+$(BUILDDIR)/$(subst /,_,$(patsubst %cpp,%o,$(SOURCE))): $(SOURCE)
 	$(CC) $(FLAGS) -c -o $@ $<
-
-$(EXECUTABLE): $(OBJECTS) 
-	$(CC) $(FLAGS) $(OBJECTS) -o $@
+endef
 
 clean:
-	-rm obj/*.o src/*.o *.o do.exe
+	rm $(OBJ) do.exe
 	
