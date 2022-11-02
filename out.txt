@@ -69,8 +69,7 @@ And will not let belief take hold of him
 And with no less nobility of love
 And you are stay'd for. There; my blessing with thee!
 And you yourself shall keep the key of it.
-And you yourself shall keep the key of it.
-
+And you yourself shall keep the key of it.
 And, sister, as the winds give benefit
 Appears before them, and with solemn march
 Are of a most select and generous chief in that.
@@ -181,14 +180,12 @@ Exit
 Exit
 Exit Ghost
 Exit Ghost
-ExitOPHELIA
-
+ExitOPHELIA
 Extorted treasure in the womb of earth,
 Farewell, and let your haste commend your duty.
 Farewell, Ophelia; and remember well
 Farewell.
-Farewell.
-
+Farewell.
 Farewell: my blessing season this in thee!
 Fear it, Ophelia, fear it, my dear sister,
 Fie on't! ah fie! 'tis an unweeded garden,
@@ -414,8 +411,7 @@ LAERTES
 LAERTES
 LAERTES
 LAERTES
-LAERTES
-
+LAERTES
 Last night of all,
 Let it be tenable in your silence still;
 Let me not think on't--Frailty, thy name is woman!--
@@ -635,8 +631,7 @@ Till then sit still, my soul: foul deeds will rise,
 'Tis here!
 'Tis here!
 'Tis in my memory lock'd,
-'Tis in my memory lock'd,
-
+'Tis in my memory lock'd,
 'Tis not alone my inky cloak, good mother,
 'Tis now struck twelve; get thee to bed, Francisco.
 'Tis strange.
@@ -757,14 +752,12 @@ Your loves, as mine to you: farewell.
 
 OPHELIA
 Enter LAERTES and OPHELIA
-ExitOPHELIA
-
+ExitOPHELIA
 OPHELIA
 OPHELIA
 OPHELIA
 My lord, upon the platform where we watch'd.
-'Tis in my memory lock'd,
-
+'Tis in my memory lock'd,
 'Tis in my memory lock'd,
 Goes slow and stately by them: thrice he walk'd
 An understanding simple and unschool'd:
@@ -1031,8 +1024,7 @@ My necessaries are embark'd: farewell:
 Your loves, as mine to you: farewell.
 We doubt it nothing: heartily farewell.
 Farewell.
-
-Farewell.
+Farewell.
 Walks o'er the dew of yon high eastward hill:
 Let it be tenable in your silence still;
 I warrant it will.
@@ -1108,31 +1100,30 @@ FRANCISCO
 FRANCISCO
 FRANCISCO
 FRANCISCO
-'Tis now struck twelve; get thee to bed, Francisco.
 FRANCISCO
+'Tis now struck twelve; get thee to bed, Francisco.
 FRANCISCO
 FRANCISCO
 He may not, as unvalued persons do,
 Do not, as some ungracious pastors do,
-Bernardo?
+BERNARDO
+BERNARDO
+BERNARDO
+BERNARDO
+BERNARDO
+BERNARDO
 Holla! Bernardo!
+BERNARDO
+BERNARDO
+BERNARDO
 Enter HORATIO, MARCELLUS, and BERNARDO
+BERNARDO
+BERNARDO
+BERNARDO
+BERNARDO
 FRANCISCO at his post. Enter to him BERNARDO
 MARCELLUS BERNARDO
 MARCELLUS BERNARDO
-BERNARDO
-BERNARDO
-BERNARDO
-BERNARDO
-BERNARDO
-BERNARDO
-BERNARDO
-BERNARDO
-BERNARDO
-BERNARDO
-BERNARDO
-BERNARDO
-BERNARDO
 MARCELLUS BERNARDO
 MARCELLUS BERNARDO
 BERNARDO
@@ -1140,6 +1131,7 @@ BERNARDO
 BERNARDO
 BERNARDO
 BERNARDO
+Bernardo?
 BERNARDO
 I do beseech you, give him leave to go.
 Saw? who?
@@ -1152,23 +1144,23 @@ HORATIO
 HORATIO
 HORATIO
 HORATIO
-HORATIO
 In my mind's eye, Horatio.
 Looks it not like the king? mark it, Horatio.
-HORATIO
-HORATIO
-HORATIO
-HORATIO
-HORATIO
-HORATIO
-HORATIO
-HORATIO
-HORATIO
-HORATIO
-HORATIO
 Question it, Horatio.
 Thou art a scholar; speak to it, Horatio.
+HORATIO
+HORATIO
 Or ever I had seen that day, Horatio!
+HORATIO
+HORATIO
+HORATIO
+HORATIO
+HORATIO
+HORATIO
+HORATIO
+HORATIO
+HORATIO
+HORATIO
 HORATIO
 HORATIO
 HORATIO
@@ -1200,6 +1192,7 @@ Almost to jelly with the act of fear,
 Be wary then; best safety lies in fear:
 The virtue of his will: but you must fear,
 For God's love, let me hear.
+Youth to itself rebels, though none else near.
 Tush, tush, 'twill not appear.
 Be thou familiar, but by no means vulgar.
 Disasters in the sun; and the moist star
@@ -1256,8 +1249,7 @@ As harbingers preceding still the fates
 What wouldst thou have, Laertes?
 And loose your voice: what wouldst thou beg, Laertes,
 You told us of some suit; what is't, Laertes?
-LAERTES
-
+LAERTES
 LAERTES
 LAERTES
 LAERTES
@@ -1308,26 +1300,26 @@ LORD POLONIUS
 LORD POLONIUS
 Enter POLONIUS
 Have you your father's leave? What says Polonius?
+MARCELLUS
+MARCELLUS
+MARCELLUS
 Speak of it: stay, and speak! Stop it, Marcellus.
+MARCELLUS
+MARCELLUS
+MARCELLUS
+MARCELLUS
 And what make you from Wittenberg, Horatio? Marcellus?
 MARCELLUS
 MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
 Enter HORATIO and MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
-MARCELLUS
 If you do meet Horatio and Marcellus,
 Welcome, Horatio: welcome, good Marcellus.
+MARCELLUS
+MARCELLUS
+MARCELLUS
+MARCELLUS
+MARCELLUS
+MARCELLUS
 MARCELLUS
 MARCELLUS
 MARCELLUS
@@ -1341,30 +1333,30 @@ Do you doubt that?
 Doth with his lofty and shrill-sounding throat
 Nor any unproportioned thought his act.
 Did slay this Fortinbras; who by a seal'd compact,
+HAMLET
+HAMLET
+HAMLET
+HAMLET
+HAMLET
+HAMLET
+HAMLET
 'Tis sweet and commendable in your nature, Hamlet,
+HAMLET
+HAMLET
+HAMLET
+HAMLET
 Let not thy mother lose her prayers, Hamlet:
 This gentle and unforced accord of Hamlet
 Dared to the combat; in which our valiant Hamlet--
 Exeunt all but HAMLET
 HAMLET
 HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
-HAMLET
 Exeunt all but HAMLET
+HAMLET
+HAMLET
+HAMLET
+HAMLET
+HAMLET
 HAMLET
 HAMLET
 HAMLET
@@ -1399,9 +1391,8 @@ So by his father lost: and this, I take it,
 It fits your wisdom so far to believe it
 So have I heard and do in part believe it.
 To let you know of it.
+And you yourself shall keep the key of it.
 And you yourself shall keep the key of it.
-And you yourself shall keep the key of it.
-
 Do you consent we shall acquaint him with it,
 He may approve our eyes and speak to it.
 Did you not speak to it?
@@ -1487,7 +1478,6 @@ As needful in our loves, fitting our duty?
 And we did think it writ down in our duty
 In that and all things will we show our duty.
 Farewell, and let your haste commend your duty.
-Costly thy habit as thy purse can buy,
 
 
 
@@ -2237,16 +2227,11 @@ OPHELIA
 And you yourself shall keep the key of it.
 LAERTES
 Farewell.
-ExitOPHELIA
-
-'Tis in my memory lock'd,
-
-And you yourself shall keep the key of it.
-
-LAERTES
-
-Farewell.
-
+ExitOPHELIA
+'Tis in my memory lock'd,
+And you yourself shall keep the key of it.
+LAERTES
+Farewell.
 Exit
 
 

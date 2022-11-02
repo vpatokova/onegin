@@ -67,15 +67,11 @@ static Error_codes split_text(poem *onegin_ptr)
     {
         if (onegin_ptr->text[count] == '\0')
         {
-            /*string curr = onegin_ptr->arr_ptr[row];
-            string prev = onegin_ptr->arr_ptr[row - 1]; 
+            string *curr = &onegin_ptr->arr_ptr[row];
+            string *prev = &onegin_ptr->arr_ptr[row - 1]; 
 
-            curr.string = &(onegin_ptr->text)[count + 1];
-            prev.len = (curr.string - prev.string - 1) / sizeof(char);*/
-            //почему не работает???
-
-            onegin_ptr->arr_ptr[row].string = &(onegin_ptr->text)[count + 1];
-            onegin_ptr->arr_ptr[row-1].len = (onegin_ptr->arr_ptr[row].string - onegin_ptr->arr_ptr[row-1].string - 1) / sizeof(char);
+            curr->string = &(onegin_ptr->text)[count + 1];
+            prev->len = (curr->string - prev->string - 1) / sizeof(char);
 
             row++;
         }

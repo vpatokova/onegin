@@ -19,29 +19,20 @@ int main(int argc, char *argv[])
     if (sort_mode == BAD_MODE)
         return 1;
 
-    poem onegin = {};
+    poem onegin = { 0 };
 
     Error_codes error_code = construct_poem(input_file_path, &onegin);
 
     if (error_code != SUCCESS)
         return 1;
-    
-    FILE *file_out = fopen(output_file_path, "w");
-
-    if (file_out == nullptr)
-    {
-        printf("Could not open file.\n");
-        return ERROR_OPEN_FILE;
-    }
 
     if (sort_mode == TEST)
     {
-        error_code = test_output(file_out, &onegin);
+        error_code = test_output(output_file_path, &onegin);
 
         if (error_code != SUCCESS)
         {
             destruct_poem(&onegin);
-            fclose(file_out);
             return 1;
         }
     }
@@ -50,11 +41,10 @@ int main(int argc, char *argv[])
     {
         my_qsort(onegin.arr_ptr, 0, onegin.n_rows, sort_mode);
 
-        write_sorted(file_out, &onegin);
+        write_sorted(output_file_path, &onegin);
     }
 
     destruct_poem(&onegin);
-    fclose(file_out);
 
     return 0;
 }

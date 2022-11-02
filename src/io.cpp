@@ -46,7 +46,6 @@ Sort_mode get_sort_mode (const char *sort_mode)
            "'%s' to sort text from right to left.\n",
            test_mode, left_to_right_mode, right_to_left_mode);
 
-
     return BAD_MODE;
 }
 
@@ -102,13 +101,19 @@ static long count_chars(FILE *file)
     return n_chars;
 }
 
-void write_sorted(FILE *file_out, poem *onegin_ptr)
+void write_sorted(const char *output_file_path, poem *onegin_ptr)
 {
-    assert(file_out   != nullptr);
-    assert(onegin_ptr != nullptr);
+    assert(output_file_path != nullptr);
+    assert(onegin_ptr       != nullptr);
+
+    FILE *file_out = fopen(output_file_path, "w");
+
+    assert(file_out != nullptr && "Could not write to file\n");
 
     for (int i = 0; i < onegin_ptr->n_rows; i++)
         if (*(onegin_ptr->arr_ptr[i].string) != '\0')
             fprintf(file_out, "%s\n", onegin_ptr->arr_ptr[i].string);
+
+    fclose(file_out);
 }
 
